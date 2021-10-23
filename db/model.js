@@ -1,1 +1,49 @@
-const db = require("./connection.js");
+'use strict';
+
+const db = require('./connection.js');
+
+const createUser = (email, hashedPassword, name) => {
+  const INSERT_USER = {
+    text: `INSERT INTO users (email, password, name) VALUES ($1, $2, $3) RETURNING id email, name;`,
+    values: [email, hashedPassword, name],
+  };
+  return db
+    .query(INSERT_USER)
+    .then((user) => user.rows[0])
+    .catch((e) => console.log(e.stack));
+};
+
+const getUser = (email) => {
+  const SELECT_USER = {
+    text: `SELECT name, email, password FROM users WHERE email=$1;`,
+    values: [email],
+  };
+  return db
+    .query(SELECT_USER)
+    .then((user) => user.rows[0])
+    .catch((e) => console.log(e.stack));
+};
+
+const createSession = (sid, data) => {
+  const INSERT_SESSION = {
+    text: `INSERT INTO sessions (sid, data) VALUES ($1, $2) RETURNING sid`,
+    values: [sid, data],
+  };
+  return db
+    .query(INSERT_SESSION)
+    .then((session) => session.rows[0].sid)
+    .catch((e) => console.log(e.stack));
+};
+
+const getSession = (sid) => {
+  const SELECT_SESSION = {
+    text: `SELECT data FROM sessions WHERE sid=$1;`,
+    values: [sid],
+  };
+  return db
+    .query(SELECT_SESSION)
+    .then((session) => session.rows[0].data)
+    .catch((e) => console.log(e.stack));
+};
+
+module.exports = { createUser, getUser, createSession, getSession };

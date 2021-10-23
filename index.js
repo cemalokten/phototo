@@ -1,37 +1,33 @@
+'use strict';
+
 // Imports express (web framework for Node.js)
 const express = require('express');
-
-// CookieParser is middleware for signing cookies
-const cookieParser = require('cookie-parser')
-
+const multer = require('multer');
+const model = require('./db/model');
+const login = require('./routes/login');
+const signup = require('./routes/signup');
+const home = require('./routes/home');
+const cookieParser = require('cookie-parser');
 const server = express();
 
-// server.use(log)
-server.use(cookieParser('somerandomstrings'))
+server.use(cookieParser('djr4vbdj5fndeh'));
+server.set('view engine', 'ejs');
 server.use(express.urlencoded({ extended: false }));
+server.use(express.static('public'));
 
-server.get('/',  (req, res) => {
-    if (req.signedCookies) 
-    res.send(req.signedCookies)
-})
+const sessionRedirect = (request, response, next) => {
+  if (!request.signedCookies.sid) response.redirect('/');
+  next();
+};
 
-server.get("/cookie", (req, res) => {
-  res.cookie("hello", "this is my cookie", COOKIE_OPTIONS);
-  res.redirect("/");
-});
+server.get('/', login.get);
+server.post('/', login.post);
+
+server.get('/signup', signup.get);
+server.post('/signup', signup.post);
+
+server.get('/home', sessionRedirect, home.get);
 
 const PORT = process.env.PORT || 3000;
-
-const COOKIE_OPTIONS = {
-    httpOnly: true,
-    maxAge: 1000 * 60, // 60,000ms (60s)
-    sameSite: "lax",
-    signed: true,
-}
-
-// function log(req,res,next) {
-//     console.log(req.method + req.url);
-//     next()
-// }
 
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
