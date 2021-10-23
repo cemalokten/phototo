@@ -13,6 +13,14 @@
 <body>
     <header>Welcome back <%-user%>
     </header>
+
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="profile" id="profile" />
+        <button>Upload</button>
+    </form>
+
+    <%-`<img src="/user/${id}/profile" alt="" width="200" height="200">`%>
+
 </body>
 
 </html>

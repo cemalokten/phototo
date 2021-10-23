@@ -1,6 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS users, sessions CASCADE;
+DROP TABLE IF EXISTS users, sessions, photos CASCADE;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -14,5 +14,10 @@ CREATE TABLE sessions (
    data JSON NOT NULL
 );
 
+CREATE TABLE photos (
+    id SERIAL PRIMARY KEY,
+    photo BYTEA NULL,
+    user_id INTEGER REFERENCES users(id)
+);
 
 COMMIT;

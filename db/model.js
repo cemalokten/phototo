@@ -15,7 +15,7 @@ const createUser = (email, hashedPassword, name) => {
 
 const getUser = (email) => {
   const SELECT_USER = {
-    text: `SELECT name, email, password FROM users WHERE email=$1;`,
+    text: `SELECT id, name, email, password FROM users WHERE email=$1;`,
     values: [email],
   };
   return db
@@ -46,4 +46,30 @@ const getSession = (sid) => {
     .catch((e) => console.log(e.stack));
 };
 
-module.exports = { createUser, getUser, createSession, getSession };
+const createImage = (photo, id) => {
+  const INSERT_IMAGE = {
+    text: `INSERT INTO photos (photo, user_id) VALUES ($1, $2)`,
+    values: [photo, id],
+  };
+  return db.query(INSERT_IMAGE).then((image) => image.rows[0]);
+};
+
+function getImage(userID) {
+  const SELECT_IMAGE = {
+    text: `SELECT photo FROM photos WHERE id=$1`,
+    values: [userID],
+  };
+  return db
+    .query(SELECT_IMAGE)
+    .then((result) => result.rows[0])
+    .catch((e) => console.log(e.stack));
+}
+
+module.exports = {
+  createUser,
+  getUser,
+  createSession,
+  getSession,
+  createImage,
+  getImage,
+};

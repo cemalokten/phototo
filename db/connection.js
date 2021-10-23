@@ -1,3 +1,5 @@
+'use strict';
+
 // import postgres-node
 const pg = require('pg');
 
