@@ -72,7 +72,7 @@ function getPhoto(userID, photoID) {
   };
   return db
     .query(SELECT_IMAGE)
-    .then((result) => result.rows[0])
+    .then((result) => result.rows[0].photo)
     .catch((e) => console.log(e.stack));
 }
 

@@ -7,6 +7,7 @@ const model = require('./db/model');
 const login = require('./routes/login');
 const signup = require('./routes/signup');
 const home = require('./routes/home');
+const photo = require('./routes/photo');
 const sessionAuth = require('./middleware/sessionauth');
 const cookieParser = require('cookie-parser');
 
@@ -18,9 +19,6 @@ server.set('view engine', 'ejs');
 server.use(express.urlencoded({ extended: false }));
 server.use(express.static('public'));
 
-const MAX_SIZE = 1000 * 1000 * 5; // 5 megabytes
-const ALLOWED_TYPES = ['image/jpeg', 'image/png'];
-
 server.get('/', login.get);
 server.post('/', login.post);
 
@@ -29,11 +27,7 @@ server.post('/signup', signup.post);
 
 server.use(sessionAuth);
 
-server.get('/user/:id/photo/:photoid', (req, res) => {
-  model.getPhoto(req.params.id, req.params.photoid, req).then((user) => {
-    res.send(user.photo);
-  });
-});
+server.get('/user/:id/photo/:photoid', photo.get);
 
 server.post('/home', upload.single('profile'), async (request, response) => {
   const { id } = await request.session;
