@@ -8,10 +8,10 @@ const get = async (request, response) => {
 };
 
 const post = async (request, response) => {
-  const { id } = request.session;
+  const { id, name } = request.session;
   const file = request.file;
   await model.createImage(file.buffer, id);
-  response.redirect('/home');
+  response.redirect(`/profile`);
 };
 
 module.exports = { get, post };

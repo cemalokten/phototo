@@ -5,37 +5,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <title>
         <%-title%>
     </title>
 </head>
 
 <body class="flex flex--justify--center">
+
     <main class="flex flex--column box">
         <section>
             <div class="flex flex--column">
 
-                <a href="/profile">
+                <a href="/home">
                     <button>
-                        @<%-user%>'s photos 👉
+                        👈 Back to feed
                     </button>
-
                 </a>
+
                 <form action="/logout" method="POST">
                     <button>Log out</button>
+                </form>
+
+                <form action="/profile" method="POST" enctype="multipart/form-data">
+
+                    <input class="browse" type="file" name="profile" id="profile" hidden />
+                    <label for="profile" class="button button flex flex--center">Choose File</label>
+                    <button>Upload</button>
+
                 </form>
             </div>
         </section>
 
-        <section>
 
-
-
-        </section>
-
-        <section>
-            <%-photos%>
+        <section id="photos">
+            <form id="delete" method="POST" action="/delete">
+                <%-photos%>
+            </form>
         </section>
     </main>
 

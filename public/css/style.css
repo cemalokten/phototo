@@ -1,3 +1,210 @@
+/* ===============================================================
+ * Author:  Cemal Okten
+ * Github: https://github.com/cemalokten/
+ * Language: CSS
+================================================================== */
+
+:root {
+  --color: rgb(0, 0, 80);
+  --bg: rgb(255, 255, 255);
+  --valid: rgb(204, 255, 215);
+  --invalid: rgb(255, 204, 204);
+  --font-size: 1rem;
+}
+
+html {
+  font-family: monospace;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+  color: var(--color);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+}
+
+body {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+h1 {
+  font-size: 1.3rem;
+  font-weight: normal;
+  font-family: inherit;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+h2 {
+  font-size: var(--font-size);
+  font-weight: normal;
+  margin-bottom: 1em;
+}
+
+p {
+  font-family: 'Dejavu';
+  font-size: 1.1rem;
+}
+
+p:last-of-type {
+  margin-top: 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex--center {
+  align-items: center;
+}
+
+.flex--justify--center {
+  justify-content: center;
+}
+
+.space--between {
+  justify-content: space-between;
+}
+
+.flex--column {
+  flex-direction: column;
+}
+
+.flex--row {
+  flex-direction: row;
+}
+
+img {
+  width: 100%;
+  border: 10vw solid whitesmoke;
+  margin-top: 3vw;
+}
+
+.box {
+  padding: 0em 2em 2em 2em;
+  width: 95vw;
+}
+
+.margin--top {
+  margin-top: 1em;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='date'],
+input[type='password'] {
+  font-family: 'Courier New', Courier, monospace;
+  height: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 2px;
+  min-width: 100%;
+  margin-top: 2rem;
+  background-color: initial;
+  font-size: 1rem;
+  text-align: center;
+  border: 1px solid grey;
+  display: block;
+  text-decoration: none;
+}
+
+.check--1 {
+  padding-bottom: 1.1rem;
+  padding-left: 1.75rem;
+}
+
+.check--2 {
+  padding-bottom: 1.1rem;
+  padding-left: 1.2rem;
+}
+
+input:required:valid {
+  box-shadow: inset 0 0 1em var(--valid);
+  outline: none;
+}
+
+input:required:focus:valid {
+  box-shadow: inset 0 0 1em var(--valid);
+  outline: none;
+}
+
+input:invalid {
+  outline: none;
+}
+
+input:focus:invalid {
+  box-shadow: inset 0 0 1em var(--invalid);
+  outline: none;
+}
+
+button,
+file,
+.button {
+  cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
+  height: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 2px;
+  min-width: 100%;
+  margin-top: 2rem;
+  background-color: initial;
+  font-size: 1rem;
+  text-align: center;
+  border: 1px solid grey;
+  display: block;
+  text-decoration: none;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.button {
+  padding-top: 1.3rem;
+}
+
+button:hover {
+  border: blue 1px solid;
+}
+
+.button:hover {
+  border: blue 1px solid;
+}
+
+.blur {
+  filter: blur(2rem);
+}
+
+@media (min-width: 800px) {
+  body {
+    padding-top: 5rem;
+  }
+
+  .box {
+    padding: 0em 2em 2em 2em;
+    border-radius: 0em;
+    width: 70vw;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  p {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.3rem;
+  }
+}
+
 .none {
   display: none;
 }

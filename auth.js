@@ -31,7 +31,7 @@ const saveUserSession = (user) => {
 
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  maxAge: 1000 * 600, // 60,000ms (60s)
+  maxAge: 1000 * 60000, // 60,000ms (60s)
   sameSite: 'lax',
   signed: true,
 };

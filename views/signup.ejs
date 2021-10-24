@@ -11,20 +11,23 @@
     </title>
 </head>
 
-<body>
-    <form method="post" action="signup">
-        <label for="name">name</label>
-        <input type="text" name="name" id="name">
+<body class="flex flex--justify--center ">
+    <div class="flex flex--column box">
+        <form method="post" action="signup">
+            <label for="name" hidden>name</label>
+            <input type="text" name="name" id="name" placeholder="Enter your name">
 
-        <label for="email">email</label>
-        <input type="email" name="email" id="email" aria-describedby="emailError">
-        <div class="<%-error%>" id="emailError">Email already in use</div>
+            <label for="email" hidden>email</label>
+            <input type="email" name="email" id="email" aria-describedby="emailError" placeholder="Enter your email">
+            <div class="<%-error%>" id="emailError">Email already in use</div>
 
-        <label for="password">password</label>
-        <input type="password" name="password" id="password" aria-describedby="passwordRequirements passwordError">
-        <div id="passwordError"></div>
-        <button type="submit">Signup</button>
-    </form>
+            <label for="password" hidden>password</label>
+            <input type="password" name="password" id="password" aria-describedby="passwordRequirements passwordError"
+                placeholder="Enter a password">
+            <div id="passwordError"></div>
+            <button type="submit">signup 👉</button>
+        </form>
+    </div>
 </body>
 
 </html>

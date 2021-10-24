@@ -5,21 +5,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>
         <%- title %>
     </title>
 </head>
 
-<body>
-    <form method="post" action="/">
-        <label for="email">email</label>
-        <input type="email" name="email" id="email">
+<body class="flex flex--justify--center ">
+    <div class="flex flex--column box">
+        <form method="post" action="/">
+            <label for="email" hidden>email</label>
+            <input type="email" name="email" id="email" placeholder="email">
 
-        <label for="password">password</label>
-        <input type="password" name="password" id="password">
+            <label for="password" hidden>password</label>
+            <input type="password" name="password" id="password" placeholder="password">
 
-        <button type="submit">Login</button>
-    </form>
+            <button type="submit">login</button>
+        </form>
+        <a href="/signup">
+            <button>
+                sign-up 👉
+            </button>
+
+        </a>
+    </div>
 </body>
 
 </html>

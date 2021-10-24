@@ -46,6 +46,11 @@ const getSession = (sid) => {
     .catch((e) => console.log(e.stack));
 };
 
+function deleteSession(sid) {
+  const DELETE_SESSION = 'DELETE FROM sessions WHERE sid=$1';
+  return db.query(DELETE_SESSION, [sid]);
+}
+
 const createImage = (photo, id) => {
   const INSERT_IMAGE = {
     text: `INSERT INTO photos (photo, user_id) VALUES ($1, $2) RETURNING photo`,
@@ -54,18 +59,18 @@ const createImage = (photo, id) => {
   return db.query(INSERT_IMAGE).then((image) => image.rows[0]);
 };
 
-function getPhotos(userID) {
+const getPhotos = (userID) => {
   const SELECT_IMAGE = {
-    text: `SELECT photo, id, user_id FROM photos WHERE user_id=$1`,
+    text: `SELECT photo, id, user_id FROM photos WHERE user_id=$1 ORDER BY id DESC`,
     values: [userID],
   };
   return db
     .query(SELECT_IMAGE)
     .then((result) => result.rows)
     .catch((e) => console.log(e.stack));
-}
+};
 
-function getPhoto(userID, photoID) {
+const getPhoto = (userID, photoID) => {
   const SELECT_IMAGE = {
     text: `SELECT photo FROM photos WHERE user_id=$1 AND id=$2`,
     values: [userID, photoID],
@@ -74,14 +79,35 @@ function getPhoto(userID, photoID) {
     .query(SELECT_IMAGE)
     .then((result) => result.rows[0].photo)
     .catch((e) => console.log(e.stack));
-}
+};
+
+const getAllPhotos = () => {
+  const SELECT_IMAGE = {
+    text: `SELECT photo, id, user_id FROM photos ORDER BY id DESC`,
+  };
+  return db
+    .query(SELECT_IMAGE)
+    .then((result) => result.rows)
+    .catch((e) => console.log(e.stack));
+};
+
+const deletePhoto = (imageid) => {
+  const DELETE_IMAGE = {
+    text: `DELETE FROM photos WHERE id=$1;`,
+    values: [imageid],
+  };
+  return db.query(DELETE_IMAGE);
+};
 
 module.exports = {
   createUser,
   getUser,
   createSession,
   getSession,
+  deleteSession,
   createImage,
   getPhoto,
   getPhotos,
+  getAllPhotos,
+  deletePhoto,
 };
