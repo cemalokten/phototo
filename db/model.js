@@ -48,16 +48,27 @@ const getSession = (sid) => {
 
 const createImage = (photo, id) => {
   const INSERT_IMAGE = {
-    text: `INSERT INTO photos (photo, user_id) VALUES ($1, $2)`,
+    text: `INSERT INTO photos (photo, user_id) VALUES ($1, $2) RETURNING photo`,
     values: [photo, id],
   };
   return db.query(INSERT_IMAGE).then((image) => image.rows[0]);
 };
 
-function getImage(userID) {
+function getPhotos(userID) {
   const SELECT_IMAGE = {
-    text: `SELECT photo FROM photos WHERE id=$1`,
+    text: `SELECT photo, id, user_id FROM photos WHERE user_id=$1`,
     values: [userID],
+  };
+  return db
+    .query(SELECT_IMAGE)
+    .then((result) => result.rows)
+    .catch((e) => console.log(e.stack));
+}
+
+function getPhoto(userID, photoID) {
+  const SELECT_IMAGE = {
+    text: `SELECT photo FROM photos WHERE user_id=$1 AND id=$2`,
+    values: [userID, photoID],
   };
   return db
     .query(SELECT_IMAGE)
@@ -71,5 +82,6 @@ module.exports = {
   createSession,
   getSession,
   createImage,
-  getImage,
+  getPhoto,
+  getPhotos,
 };

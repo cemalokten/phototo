@@ -29,23 +29,20 @@ server.post('/signup', signup.post);
 
 server.use(sessionAuth);
 
-server.get('/home', home.get);
+server.get('/user/:id/photo/:photoid', (req, res) => {
+  model.getPhoto(req.params.id, req.params.photoid, req).then((user) => {
+    res.send(user.photo);
+  });
+});
 
-server.post('/home', upload.single('profile'), (request, response) => {
-  const { id } = request.session;
-  const file = request.file;
-  console.log('🚀 ~ file', file);
-  console.log('🚀 ~ file: buffer', file.buffer);
-
-  model.createImage(file.buffer, id);
+server.post('/home', upload.single('profile'), async (request, response) => {
+  const { id } = await request.session;
+  const file = await request.file;
+  await model.createImage(file.buffer, id);
   response.redirect('/home');
 });
 
-server.get('/user/:id/avatar', (req, res) => {
-  model.getImage(req.params.id).then((user) => {
-    res.send(user);
-  });
-});
+server.get('/home', home.get);
 
 const PORT = process.env.PORT || 3000;
 
