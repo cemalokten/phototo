@@ -29,12 +29,7 @@ server.use(sessionAuth);
 
 server.get('/user/:id/photo/:photoid', photo.get);
 
-server.post('/home', upload.single('profile'), async (request, response) => {
-  const { id } = await request.session;
-  const file = await request.file;
-  await model.createImage(file.buffer, id);
-  response.redirect('/home');
-});
+server.post('/home', upload.single('profile'), photo.post);
 
 server.get('/home', home.get);
 

@@ -7,4 +7,11 @@ const get = async (request, response) => {
   response.send(photo);
 };
 
-module.exports = { get };
+const post = async (request, response) => {
+  const { id } = request.session;
+  const file = request.file;
+  await model.createImage(file.buffer, id);
+  response.redirect('/home');
+};
+
+module.exports = { get, post };
