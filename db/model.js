@@ -83,7 +83,9 @@ const getPhoto = (userID, photoID) => {
 
 const getAllPhotos = () => {
   const SELECT_IMAGE = {
-    text: `SELECT photo, id, user_id FROM photos ORDER BY id DESC`,
+    text: `SELECT photos.photo, photos.id, photos.user_id, users.name FROM photos 
+    INNER JOIN users ON photos.user_id = users.id
+     ORDER BY id DESC`,
   };
   return db
     .query(SELECT_IMAGE)

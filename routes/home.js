@@ -9,7 +9,8 @@ const get = async (request, response) => {
     const photos = await model.getAllPhotos();
     const photosHTML = await photos
       .map((photo) => {
-        return `<img src="/user/${photo.user_id}/photo/${photo.id}">`;
+        return `<img src="/user/${photo.user_id}/photo/${photo.id}">
+        @${photo.name.toLowerCase()}`;
       })
       .join('');
     const details = {
